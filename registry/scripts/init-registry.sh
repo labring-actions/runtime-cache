@@ -15,16 +15,13 @@
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 
-readonly DATA=${1:-/var/lib/registry}
-readonly CONFIG=${2:-/etc/registry}
-
-mkdir -p "$DATA" "$CONFIG"
+mkdir -p "$registryData" "$registryConfig"
 
 cp -a ../etc/registry.service /etc/systemd/system/
 cp -au ../cri/registry /usr/bin/
 
-cp -a ../etc/registry_config.yml "$CONFIG"
-cp -a ../etc/registry_htpasswd "$CONFIG"
+cp -a ../etc/registry_config.yml "$registryConfig"
+cp -a ../etc/registry_htpasswd "$registryConfig"
 
 check_service start registry
 check_status registry

@@ -17,11 +17,16 @@ pushd "cri" && {
 }
 popd
 
+pushd "scripts" && {
+  cp ../../scripts/common.sh .
+}
+popd
+
 cat <<EOF >"Kubefile"
 FROM scratch
 MAINTAINER sealos
-LABEL init-registry="init-registry.sh \\\$registryData \\\$registryConfig" \
-      clean-registry="clean-registry.sh \\\$registryData \\\$registryConfig" \
+LABEL init-registry="init-registry.sh" \
+      clean-registry="clean-registry.sh" \
       merge.sealos.io.type.registry="$VERSION"
 ENV registryData=/var/lib/registry \
     registryConfig=/etc/registry \

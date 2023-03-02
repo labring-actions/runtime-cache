@@ -17,15 +17,12 @@ source common.sh
 # prepare registry storage as directory
 cd "$(dirname "$0")" || error "error for $0"
 
-readonly DATA=${1:-/var/lib/registry}
-readonly CONFIG=${2:-/etc/registry}
-
 check_service stop registry
 rm -f /etc/systemd/system/registry.service
 rm -f /usr/bin/registry
 
-rm -rf "$DATA"
-rm -rf "$CONFIG"
+rm -rf "$registryData"
+rm -rf "$registryConfig"
 rm -f /etc/registry.yml
 
 logger "clean registry success"
