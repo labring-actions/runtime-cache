@@ -17,6 +17,5 @@ source common.sh
 if command_exists containerd && ! command_exists docker; then
   error "containerd already exist, uninstall containerd and retry"
 fi
-check_port_inuse
 check_file_exits ${registryData}
 logger "check root,port,cri success"

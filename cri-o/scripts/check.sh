@@ -16,7 +16,6 @@ cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 storage=${1:-/var/lib/registry}
 
-check_port_inuse
 if command_exists docker; then
   error "Please using docker image: labring/kubernetes-docker:v1.23.10 or uninstall docker retry"
 fi

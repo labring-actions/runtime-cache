@@ -16,7 +16,6 @@ cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 storage=${1:-/var/lib/registry}
 
-check_port_inuse
 if command_exists docker; then
   error "docker already exist, uninstall docker and retry"
 fi

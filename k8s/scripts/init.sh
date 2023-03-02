@@ -15,6 +15,8 @@
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 
+check_k8s_port_inuse
+
 cp -a ../cri/crictl /usr/bin
 [ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
 

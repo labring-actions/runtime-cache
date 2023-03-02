@@ -15,6 +15,17 @@
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 
+check_registry_port_inuse() {
+    portOut="$(../opt/lsof -i :"${1}")"
+    if [ -n "$portOut" ]; then
+      error "Port: $port occupied. Please turn off registry service."
+    fi
+  done
+}
+
+check_registry_port_inuse 5001
+check_registry_port_inuse $registryPort
+
 mkdir -p "$registryData" "$registryConfig"
 
 cp -a ../etc/registry.service /etc/systemd/system/

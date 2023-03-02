@@ -156,18 +156,9 @@ check_file_exits() {
   done
 }
 
-check_root() {
-  if [ $UID -ne 0 ]; then
-    error Not root user. Please run "su root" as root.
-  fi
-}
-
-check_port_inuse() {
-  if ! command_exists lsof; then
-    cp -au ../opt/lsof /usr/bin
-  fi
-  for port in {10249..10259} {5001}; do
-    portOut="$(lsof -i :"${port}")"
+check_k8s_port_inuse() {
+  for port in {10249..10259} ; do
+    portOut="$(../opt/lsof -i :"${port}")"
     if [ -n "$portOut" ]; then
       error "Port: $port occupied. Please turn off port service."
     fi
