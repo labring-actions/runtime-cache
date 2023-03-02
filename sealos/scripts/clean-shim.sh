@@ -14,12 +14,9 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-cp -rf ../etc/image-cri-shim.service /etc/systemd/system/
-cp -rf ../etc/image-cri-shim.yaml /etc
-cp -rf ../cri/image-cri-shim /usr/bin
-[ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
-systemctl enable image-cri-shim.service
-systemctl daemon-reload
-systemctl restart image-cri-shim.service
-check_status image-cri-shim
-logger "init shim success"
+rm -rf /etc/systemd/system/image-cri-shim.service
+check_service stop registry
+rm -f /usr/bin/image-cri-shim
+rm -f /etc/image-cri-shim.yaml
+rm -f /var/lib/image-cri-shim
+logger "clean shim success"
