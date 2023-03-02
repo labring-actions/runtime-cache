@@ -27,7 +27,7 @@ LABEL init="init-cri.sh && bash init.sh" \
       sealos.io.version="v1beta1" \
       version="v${VERSION}" \
       vip="\\\$defaultVIP"
-ENV sandboxImage=${sandboxImage} \
+ENV SEALOS_SYS_SANDBOX_IMAGE=${sandboxImage} \
     defaultVIP=10.103.97.2
 COPY . .
 EOF
