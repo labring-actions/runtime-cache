@@ -12,11 +12,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-REGISTRY_DOMAIN=${1:-sealos.hub}
-REGISTRY_PORT=${2:-5000}
-REGISTRY_USERNAME=${3:-}
-REGISTRY_PASSWORD=${4:-}
-SANDBOX_IMAGE=${5:-}
-
-docker login --username ${REGISTRY_USERNAME} --password ${REGISTRY_PASSWORD} ${REGISTRY_DOMAIN}:${REGISTRY_PORT}
-crictl pull k8s.gcr.io/${SANDBOX_IMAGE}
+docker login --username ${registryUsername} --password ${registryPassword} ${registryDomain}:${registryPort}
+crictl pull k8s.gcr.io/${sandboxImage}  || true

@@ -30,12 +30,9 @@ if ! command_exists docker; then
   tar --strip-components=1 -zxvf ../cri/docker.tgz -C /usr/bin
   # shellcheck disable=SC2046
   chmod a+x $(tar -tf ../cri/docker.tgz | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
-  systemctl enable docker.service
-  systemctl restart docker.service
   cp ../etc/daemon.json /etc/docker
 fi
 disable_selinux
-systemctl daemon-reload
-systemctl restart docker.service
+check_service start docker
 check_status docker
 logger "init docker success"

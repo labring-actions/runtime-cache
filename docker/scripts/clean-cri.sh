@@ -14,9 +14,6 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-dockerStorage=${1:-/var/lib/docker}
-criDockerStorage=${2:-/var/lib/cri-dockerd}
-
-bash clean-cri-dockerd.sh $criDockerStorage
-bash clean-docker.sh $dockerStorage
+bash clean-cri-dockerd.sh
+bash clean-docker.sh
 logger "clean docker success"

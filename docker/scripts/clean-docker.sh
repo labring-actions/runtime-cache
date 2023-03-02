@@ -14,13 +14,10 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-storage=${1:-/var/lib/docker}
-systemctl stop docker
-systemctl disable docker
 rm -rf /etc/docker/daemon.json
 rm -rf /etc/systemd/system/docker.service
-systemctl daemon-reload
-rm -rf $storage
+check_service stop docker
+rm -rf ${criData}
 
 rm -f /usr/bin/containerd
 rm -f /usr/bin/containerd-shim

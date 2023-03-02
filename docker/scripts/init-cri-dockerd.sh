@@ -20,10 +20,7 @@ if ! command_exists cri-docker; then
   tar --strip-components=1 -zxvf ../cri/cri-dockerd.tgz -C /usr/bin
   # shellcheck disable=SC2046
   chmod a+x $(tar -tf ../cri/cri-dockerd.tgz | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
-  systemctl enable cri-docker.service
-  systemctl restart cri-docker.service
 fi
-systemctl daemon-reload
-systemctl restart cri-docker.service
+check_service start cri-docker
 check_status cri-docker
 logger "init docker success"

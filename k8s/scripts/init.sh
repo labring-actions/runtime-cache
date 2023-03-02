@@ -15,6 +15,9 @@
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 
+cp -a ../cri/crictl /usr/bin
+[ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
+
 if ! bash init-shim.sh; then
   error "====init image-cri-shim failed!===="
 fi
