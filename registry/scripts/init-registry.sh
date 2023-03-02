@@ -16,7 +16,7 @@ cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 
 check_registry_port_inuse() {
-    portOut="$(../opt/lsof -i :"${1}")"
+    portOut="$(../opt/lsof -i:"${1}")"
     if [ -n "$portOut" ]; then
       error "Port: ${1} occupied. Please turn off registry service."
     fi
