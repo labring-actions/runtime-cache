@@ -1,6 +1,3 @@
-cri
-images
 scripts/common.sh
 Kubefile
-opt
-registry
+cri

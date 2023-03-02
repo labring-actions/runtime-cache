@@ -26,7 +26,7 @@ pushd "opt" && {
 }
 popd
 
-LvscareImage="ghcr.io/labring/sealos:v${VERSION}"
+LvscareImage="ghcr.io/labring/lvscare:v${VERSION}"
 
 echo $LvscareImage >  images/shim/lvscareImage
 
