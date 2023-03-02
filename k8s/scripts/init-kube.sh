@@ -33,5 +33,6 @@ cp ../etc/kubelet.service /etc/systemd/system/
 cp ../etc/10-kubeadm.conf /etc/systemd/system/kubelet.service.d/
 [ -d /var/lib/kubelet ] || mkdir /var/lib/kubelet
 cp ../etc/kubelet-flags.env /var/lib/kubelet
-systemctl enable kubelet
+check_service start kubelet
+check_status kubelet
 logger "init kubelet success"

@@ -20,6 +20,7 @@ sandboxImage=""
 pushd "/tmp/runtime-cache/k8s/$ARCH" && {
   sudo sealos create --short "ghcr.io/labring-actions/cache:kubernetes-v${VERSION}-$ARCH" &> mount
   sandboxImage=$(cat $(cat mount)/images/shim/DefaultImageList | grep pause )
+  sandboxImage=${sandboxImage#*/}
 }
 popd
 
