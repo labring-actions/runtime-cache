@@ -14,9 +14,9 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
+check_service stop cri-docker
 rm -rf /etc/systemd/system/cri-docker.service
 rm -rf /etc/systemd/system/cri-docker.socket
-check_service stop cri-docker
 rm -rf ${criDockerdData}
 rm -f  $(tar -tf ../modules/cri-dockerd | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
 rm -f /var/run/cri-dockerd.sock

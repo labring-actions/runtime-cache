@@ -28,7 +28,7 @@ check_registry_port_inuse $registryPort
 mkdir -p "$registryData" "$registryConfig"
 
 tar -C /usr/bin/ -zxvf ../modules/distribution registry
-chmod a+x $(tar -tf ../modules/distribution | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
+chmod a+x  /usr/bin/registry
 cp -a ../etc/registry.service /etc/systemd/system/
 
 cp -a ../etc/registry_config.yml "$registryConfig"

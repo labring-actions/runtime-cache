@@ -14,9 +14,7 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-systemctl stop kubelet
-systemctl daemon-reload
-
+check_service stop kubelet
 rm -f /usr/bin/conntrack
 rm -f /usr/bin/kubelet-pre-start.sh
 rm -f /usr/bin/kubelet-post-stop.sh

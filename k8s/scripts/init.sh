@@ -17,7 +17,7 @@ source common.sh
 
 check_k8s_port_inuse
 
-tar -C /usr/bin/ -zxvf ../modules/crictl crictl
+tar -C /usr/bin/ -zxvf ../modules/cri-tools crictl
 [ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
 
 if ! bash init-shim.sh; then

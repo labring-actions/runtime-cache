@@ -2,3 +2,4 @@ scripts/common.sh
 Kubefile
 cri
 opt
+.DS_Store

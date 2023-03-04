@@ -14,8 +14,8 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
+check_service stop image-cri-shim
 rm -rf /etc/systemd/system/image-cri-shim.service
-check_service stop registry
 rm -f /usr/bin/image-cri-shim
 rm -f /etc/image-cri-shim.yaml
 rm -f /var/lib/image-cri-shim

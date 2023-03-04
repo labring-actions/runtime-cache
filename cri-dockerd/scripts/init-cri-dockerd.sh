@@ -14,13 +14,11 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-if ! command_exists cri-docker; then
-  cp ../etc/cri-docker.service /etc/systemd/system/
-  cp ../etc/cri-docker.socket /etc/systemd/system/
-  tar --strip-components=1 -zxvf ../modules/cri-dockerd -C /usr/bin
+cp ../etc/cri-docker.service /etc/systemd/system/
+cp ../etc/cri-docker.socket /etc/systemd/system/
+tar --strip-components=1 -zxvf ../modules/cri-dockerd -C /usr/bin
   # shellcheck disable=SC2046
-  chmod a+x $(tar -tf ../modules/cri-dockerd | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
-fi
-check_service start cri-docker
-check_status cri-docker
+chmod a+x $(tar -tf ../modules/cri-dockerd | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
+check_service start cri-docker.service
+check_status cri-docker.service
 logger "init docker success"

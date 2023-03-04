@@ -4,3 +4,4 @@ scripts/common.sh
 Kubefile
 opt
 registry
+.DS_Store

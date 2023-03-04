@@ -44,9 +44,11 @@ check_service() {
   systemctl daemon-reload
   case $action in
   start)
+    systemctl restart "$@"
     systemctl enable "$@"
     ;;
   stop)
+    systemctl stop "$@"
     systemctl disable "$@"
     ;;
   *)

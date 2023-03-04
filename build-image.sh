@@ -52,3 +52,5 @@ pushd "k8s" && {
   sealos build -t dev-k8s:1.23.17 .
 }
 popd
+
+sealos merge -t dev-merge-k8s:1.23.17 dev-k8s:1.23.17 dev-cri-dockerd:0.2.6 dev-docker:20.10.23 dev-tools dev-sealos:4.1.6 dev-registry:2.8.1 dev-tools
