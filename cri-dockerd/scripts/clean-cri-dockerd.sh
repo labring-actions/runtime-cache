@@ -18,6 +18,6 @@ check_service stop cri-docker
 rm -rf /etc/systemd/system/cri-docker.service
 rm -rf /etc/systemd/system/cri-docker.socket
 rm -rf ${criDockerdData}
-rm -f  $(tar -tf ../modules/cri-dockerd | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
+rm -f  /usr/bin/cri-dockerd
 rm -f /var/run/cri-dockerd.sock
-logger "clean cri-docker success"
+logger "clean cri-dockerd success"

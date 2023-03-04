@@ -5,21 +5,19 @@ cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
 export readonly ARCH=${1:-amd64}
 export readonly VERSION=${2:-4.1.6}
 
-rm -rf /tmp/runtime-cache/sealos
 mkdir -p "cri"
 mkdir -p "opt"
-mkdir -p "/tmp/runtime-cache/sealos/$ARCH"
 
-sudo sealos create --platform linux/$ARCH --short "ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH" &> /tmp/runtime-cache/sealos/$ARCH/mount
+MOUNT_SEALOS=$(sudo sealos create --platform linux/$ARCH --short "ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH" 2>&1)
 
 pushd "cri" && {
-  tar -zxvf $(cat /tmp/runtime-cache/sealos/$ARCH/mount)/modules/sealos image-cri-shim
+  tar -zxvf ${MOUNT_SEALOS}/modules/sealos image-cri-shim
   sudo chmod a+x image-cri-shim
 }
 popd
 
 pushd "opt" && {
-  tar -zxvf $(cat /tmp/runtime-cache/sealos/$ARCH/mount)/modules/sealos sealctl
+  tar -zxvf ${MOUNT_SEALOS}/modules/sealos sealctl
   sudo chmod a+x sealctl
 }
 popd

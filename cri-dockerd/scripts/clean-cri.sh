@@ -16,4 +16,4 @@ cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 bash clean-cri-dockerd.sh
 bash clean-docker.sh
-logger "clean docker success"
+logger "clean cri docker success"
