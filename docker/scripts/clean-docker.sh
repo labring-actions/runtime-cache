@@ -18,14 +18,5 @@ rm -rf /etc/docker/daemon.json
 rm -rf /etc/systemd/system/docker.service
 check_service stop docker
 rm -rf ${criData}
-
-rm -f /usr/bin/containerd
-rm -f /usr/bin/containerd-shim
-rm -f /usr/bin/containerd-shim-runc-v2
-rm -f /usr/bin/ctr
-rm -f /usr/bin/docker
-rm -f /usr/bin/docker-init
-rm -f /usr/bin/docker-proxy
-rm -f /usr/bin/dockerd
-rm -f /usr/bin/runc
+rm -f  $(tar -tf ../modules/docker | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
 logger "clean docker success"

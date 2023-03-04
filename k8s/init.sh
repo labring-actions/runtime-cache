@@ -4,6 +4,7 @@ set -e
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
 export readonly ARCH=${1:-amd64}
 export readonly VERSION=${2:-1.25.0}
+export readonly CRICTL_VERSION=${3:-1.25.0}
 
 rm -rf bin
 rm -rf /tmp/runtime-cache/k8s
@@ -18,14 +19,14 @@ popd
 sandboxImage=""
 
 pushd "/tmp/runtime-cache/k8s/$ARCH" && {
-  sudo sealos create --short "ghcr.io/labring-actions/cache:kubernetes-v${VERSION}-$ARCH" &> mount
+  sudo sealos create --short "ghcr.io/labring-actions/cache-kubernetes:${VERSION}-$ARCH" &> mount
   sandboxImage=$(cat $(cat mount)/images/shim/DefaultImageList | grep pause )
   sandboxImage=${sandboxImage#*/}
 }
 popd
 
 cat <<EOF >"Kubefile"
-FROM ghcr.io/labring-actions/cache:kubernetes-v${VERSION}-$ARCH
+FROM ghcr.io/labring-actions/cache-kubernetes:${VERSION}-$ARCH
 MAINTAINER sealos
 LABEL init="init-cri.sh && bash init.sh" \
       clean="clean.sh && bash clean-cri.sh" \
@@ -36,5 +37,6 @@ LABEL init="init-cri.sh && bash init.sh" \
       vip="\\\$defaultVIP"
 ENV SEALOS_SYS_SANDBOX_IMAGE=${sandboxImage} \
     defaultVIP=10.103.97.2
+COPY --from=ghcr.io/labring-actions/cache-cri-tools:${CRICTL_VERSION}-$ARCH . .
 COPY . .
 EOF

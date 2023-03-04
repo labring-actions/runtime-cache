@@ -14,10 +14,13 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-rm -rf /etc/systemd/system/cri-docker.service
-rm -rf /etc/systemd/system/cri-docker.socket
-check_service stop cri-docker
-rm -rf ${criDockerdData}
-rm -f /usr/bin/cri-dockerd
-rm -f /var/run/cri-dockerd.sock
-logger "clean cri-docker success"
+if ! command_exists cri-docker; then
+  cp ../etc/cri-docker.service /etc/systemd/system/
+  cp ../etc/cri-docker.socket /etc/systemd/system/
+  tar --strip-components=1 -zxvf ../modules/cri-dockerd -C /usr/bin
+  # shellcheck disable=SC2046
+  chmod a+x $(tar -tf ../modules/cri-dockerd | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
+fi
+check_service start cri-docker
+check_status cri-docker
+logger "init docker success"

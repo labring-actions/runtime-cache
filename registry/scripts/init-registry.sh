@@ -25,12 +25,11 @@ check_registry_port_inuse() {
 check_registry_port_inuse 5001
 check_registry_port_inuse $registryPort
 
-exit 0
-
 mkdir -p "$registryData" "$registryConfig"
 
+tar -C /usr/bin/ -zxvf ../modules/distribution registry
+chmod a+x $(tar -tf ../modules/distribution | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
 cp -a ../etc/registry.service /etc/systemd/system/
-cp -au ../cri/registry /usr/bin/
 
 cp -a ../etc/registry_config.yml "$registryConfig"
 cp -a ../etc/registry_htpasswd "$registryConfig"

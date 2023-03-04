@@ -8,27 +8,23 @@ export readonly VERSION=${2:-4.1.6}
 rm -rf /tmp/runtime-cache/sealos
 mkdir -p "cri"
 mkdir -p "opt"
-mkdir -p "images/shim"
 mkdir -p "/tmp/runtime-cache/sealos/$ARCH"
-##GHPROXY=https://ghproxy.com/
-pushd "/tmp/runtime-cache/sealos/$ARCH" && {
-  wget -O sealos.tar.gz ${GHPROXY}https://github.com/labring/sealos/releases/download/v${VERSION}/sealos_${VERSION}_linux_${ARCH}.tar.gz
-}
-popd
+
+sudo sealos create --platform linux/$ARCH --short "ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH" &> /tmp/runtime-cache/sealos/$ARCH/mount
 
 pushd "cri" && {
-  tar -zxvf /tmp/runtime-cache/sealos/$ARCH/sealos.tar.gz image-cri-shim
+  tar -zxvf $(cat /tmp/runtime-cache/sealos/$ARCH/mount)/modules/sealos image-cri-shim
+  sudo chmod a+x image-cri-shim
 }
 popd
 
 pushd "opt" && {
-  tar -zxvf /tmp/runtime-cache/sealos/$ARCH/sealos.tar.gz sealctl
+  tar -zxvf $(cat /tmp/runtime-cache/sealos/$ARCH/mount)/modules/sealos sealctl
+  sudo chmod a+x sealctl
 }
 popd
 
 LvscareImage="ghcr.io/labring/lvscare:v${VERSION}"
-
-echo $LvscareImage >  images/shim/lvscareImage
 
 pushd "scripts" && {
   cp ../../scripts/common.sh .
@@ -40,5 +36,6 @@ FROM scratch
 MAINTAINER sealos
 LABEL image="$LvscareImage" \
       merge.sealos.io.type.sealos="$VERSION"
+COPY --from=ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH  registry .
 COPY . .
 EOF

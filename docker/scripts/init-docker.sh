@@ -27,9 +27,9 @@ if ! command_exists docker; then
 
   [ -d /etc/docker/ ] || mkdir /etc/docker/ -p
   cp ../etc/docker.service /etc/systemd/system/
-  tar --strip-components=1 -zxvf ../cri/docker.tgz -C /usr/bin
+  tar --strip-components=1 -zxvf ../modules/docker -C /usr/bin
   # shellcheck disable=SC2046
-  chmod a+x $(tar -tf ../cri/docker.tgz | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
+  chmod a+x $(tar -tf ../modules/docker | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
   cp ../etc/daemon.json /etc/docker
 fi
 disable_selinux
