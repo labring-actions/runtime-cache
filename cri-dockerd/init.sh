@@ -2,8 +2,8 @@
 set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
-export readonly ARCH=${1:-amd64}
-export readonly VERSION=${2:-0.3.1}
+readonly ARCH=${1:-amd64}
+readonly VERSION=${2:-0.3.1}
 
 pushd "scripts" && {
   cp ../../scripts/common.sh .

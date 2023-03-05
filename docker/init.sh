@@ -2,8 +2,8 @@
 set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
-export readonly ARCH=${1:-amd64}
-export readonly VERSION=${2:-19.03.15}
+readonly ARCH=${1:-amd64}
+readonly VERSION=${2:-19.03.15}
 
 rm -rf cri
 rm -rf /tmp/runtime-cache/docker

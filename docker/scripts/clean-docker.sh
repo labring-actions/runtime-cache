@@ -18,5 +18,5 @@ check_service stop docker
 rm -rf /etc/docker/daemon.json
 rm -rf /etc/systemd/system/docker.service
 rm -rf ${criData}
-rm -f  $(tar -tf ../modules/docker | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
+rm -f $(tar -tf ../modules/docker | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
 logger "clean docker success"

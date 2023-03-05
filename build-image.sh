@@ -45,7 +45,6 @@ pushd "cri-dockerd" && {
 }
 popd
 
-
 pushd "k8s" && {
   echo "build k8s"
   bash init.sh ${ARCH} 1.23.17 1.23.0

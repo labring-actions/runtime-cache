@@ -19,7 +19,7 @@ cd "$(dirname "$0")" || error "error for $0"
 
 check_service stop registry
 rm -f /etc/systemd/system/registry.service
-rm -f  /usr/bin/registry
+rm -f /usr/bin/registry
 
 rm -rf "$registryData"
 rm -rf "$registryConfig"

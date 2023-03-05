@@ -18,6 +18,6 @@ check_service stop cri-docker
 rm -rf /etc/systemd/system/cri-docker.service
 rm -rf /etc/systemd/system/cri-docker.socket
 rm -rf ${criDockerdData}
-rm -f  /usr/bin/cri-dockerd
+rm -f /usr/bin/cri-dockerd
 rm -f /var/run/cri-dockerd.sock
 logger "clean cri-dockerd success"

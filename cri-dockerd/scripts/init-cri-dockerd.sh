@@ -17,7 +17,7 @@ source common.sh
 cp ../etc/cri-docker.service /etc/systemd/system/
 cp ../etc/cri-docker.socket /etc/systemd/system/
 tar --strip-components=1 -zxvf ../modules/cri-dockerd -C /usr/bin
-  # shellcheck disable=SC2046
+# shellcheck disable=SC2046
 chmod a+x /usr/bin/cri-dockerd
 check_service start cri-docker.service
 check_status cri-docker.service

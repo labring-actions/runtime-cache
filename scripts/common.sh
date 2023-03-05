@@ -143,7 +143,7 @@ check_file_exits() {
 }
 
 check_k8s_port_inuse() {
-  for port in {10249..10259} ; do
+  for port in {10249..10259}; do
     portOut="$(../opt/lsof -i :"${port}")"
     if [ -n "$portOut" ]; then
       error "Port: $port occupied. Please turn off port service."

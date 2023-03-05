@@ -2,9 +2,9 @@
 set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
-export readonly ARCH=${1:-amd64}
-export readonly VERSION=${2:-1.25.0}
-export readonly CRICTL_VERSION=${3:-1.25.0}
+readonly ARCH=${1:-amd64}
+readonly VERSION=${2:-1.25.0}
+readonly CRICTL_VERSION=${3:-1.25.0}
 
 rm -rf bin
 rm -rf /tmp/runtime-cache/k8s
@@ -19,8 +19,8 @@ popd
 sandboxImage=""
 
 pushd "/tmp/runtime-cache/k8s/$ARCH" && {
-  sudo sealos create --short "ghcr.io/labring-actions/cache-kubernetes:${VERSION}-$ARCH" &> mount
-  sandboxImage=$(cat $(cat mount)/images/shim/DefaultImageList | grep pause )
+  sudo sealos create --short "ghcr.io/labring-actions/cache-kubernetes:${VERSION}-$ARCH" &>mount
+  sandboxImage=$(cat $(cat mount)/images/shim/DefaultImageList | grep pause)
   sandboxImage=${sandboxImage#*/}
 }
 popd

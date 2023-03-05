@@ -2,7 +2,7 @@
 set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
-export readonly ARCH=${1:-amd64}
+readonly ARCH=${1:-amd64}
 
 cat <<EOF >"Kubefile"
 FROM scratch

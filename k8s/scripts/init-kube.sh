@@ -22,7 +22,6 @@ cp -a ../scripts/kubelet-pre-start.sh /usr/bin
 cp -a ../scripts/kubelet-post-stop.sh /usr/bin
 bash /usr/bin/kubelet-pre-start.sh
 
-
 source common.sh
 disable_firewalld
 
