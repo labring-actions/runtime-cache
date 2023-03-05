@@ -150,3 +150,13 @@ check_k8s_port_inuse() {
     fi
   done
 }
+
+find ../modules/ -type f | grep -v .files$ | while read -r module; do
+  if ! [ -s "$module.files" ]; then
+    if file "$module" | grep compressed >/dev/null; then
+      tar -tf "$module" | awk -F/ '{print $NF}' | grep -v ^$ >"$module.files"
+    else
+      echo "${module##*/}" >"$module.files"
+    fi
+  fi
+done

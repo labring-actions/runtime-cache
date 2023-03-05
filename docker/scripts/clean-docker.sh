@@ -13,10 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
+readonly module_files=../modules/docker.files
 source common.sh
 check_service stop docker
 rm -rf /etc/docker/daemon.json
 rm -rf /etc/systemd/system/docker.service
 rm -rf ${criData}
-rm -f $(tar -tf ../modules/docker | while read -r binary; do echo "/usr/bin/${binary##*/}"; done | xargs)
+awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | xargs rm -fv
 logger "clean docker success"
