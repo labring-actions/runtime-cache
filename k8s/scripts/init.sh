@@ -17,8 +17,12 @@ source common.sh
 
 check_k8s_port_inuse
 
-tar -C /usr/bin/ -zxvf ../modules/cri-tools crictl
+[ -f ../registry/docker ] && tar -zxf ../registry/docker -C ../registry
+
+tar -C /usr/bin/ -zxf ../modules/cri-tools crictl
 [ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
+
+tar -zxf ../modules/kube -C ../
 
 if ! bash init-shim.sh; then
   error "====init image-cri-shim failed!===="
@@ -27,5 +31,7 @@ fi
 if ! bash init-kube.sh; then
   error "====init kubelet failed!===="
 fi
+
+kubeadm config images pull --cri-socket /var/run/image-cri-shim.sock
 
 logger "init rootfs success"

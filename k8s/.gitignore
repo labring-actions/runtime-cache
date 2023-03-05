@@ -2,3 +2,5 @@ scripts/common.sh
 Kubefile
 bin
 .DS_Store
+modules
+registry

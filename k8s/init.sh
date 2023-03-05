@@ -26,7 +26,7 @@ pushd "/tmp/runtime-cache/k8s/$ARCH" && {
 popd
 
 cat <<EOF >"Kubefile"
-FROM ghcr.io/labring-actions/cache-kubernetes:${VERSION}-$ARCH
+FROM scratch
 MAINTAINER sealos
 LABEL init="init-cri.sh && bash init.sh" \
       clean="clean.sh && bash clean-cri.sh" \
