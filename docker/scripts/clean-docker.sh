@@ -20,4 +20,5 @@ rm -rf /etc/docker/daemon.json
 rm -rf /etc/systemd/system/docker.service
 rm -rf ${criData}
 awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | xargs rm -fv
+ip link delete docker0
 logger "clean docker success"
