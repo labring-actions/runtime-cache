@@ -1,4 +1,5 @@
 scripts/common.sh
+scripts/untar-registry.sh
 Kubefile
 cri
 opt

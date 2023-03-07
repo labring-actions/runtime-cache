@@ -27,7 +27,6 @@ check_registry_port_inuse $registryPort
 
 mkdir -p "$registryData" "$registryConfig"
 
-if [ -d ../registry/compressed/ ]; then find ../registry/compressed/ -type f -exec file {} \; | grep compressed | awk -F: '{print $1}' | while IFS='' read -r cpd; do tar -zxf "$cpd"  -C ../registry; done; fi
 
 tar -C /usr/bin/ -zxvf ../modules/distribution registry
 chmod a+x /usr/bin/registry

@@ -7,6 +7,7 @@ readonly VERSION=${2:-2.8.1}
 
 pushd "scripts" && {
   cp ../../scripts/common.sh .
+  cp ../../scripts/untar-registry.sh .
 }
 popd
 
