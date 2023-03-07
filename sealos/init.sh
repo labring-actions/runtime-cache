@@ -34,6 +34,6 @@ FROM scratch
 MAINTAINER sealos
 LABEL image="$LvscareImage" \
       merge.sealos.io.type.sealos="$VERSION"
-COPY --from=ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH  registry .
+COPY --from=ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH  registry registry
 COPY . .
 EOF

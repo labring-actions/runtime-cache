@@ -17,8 +17,6 @@ source common.sh
 
 check_k8s_port_inuse
 
-[ -f ../registry/docker ] && tar -zxf ../registry/docker -C ../registry
-
 tar -C /usr/bin/ -zxf ../modules/cri-tools crictl
 [ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
 
@@ -28,10 +26,11 @@ if ! bash init-shim.sh; then
   error "====init image-cri-shim failed!===="
 fi
 
+#need after cri-shim
+crictl pull ${registryDomain}:${registryPort}/${SEALOS_SYS_SANDBOX_IMAGE}
+
 if ! bash init-kube.sh; then
   error "====init kubelet failed!===="
 fi
-
-kubeadm config images pull --cri-socket /var/run/image-cri-shim.sock
 
 logger "init rootfs success"

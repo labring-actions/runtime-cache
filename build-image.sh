@@ -8,7 +8,7 @@ rm -rf docker/{cri,Kubefile,opt,scripts/common.sh}
 rm -rf cri-dockerd/{cri,Kubefile,opt,scripts/common.sh,bin}
 rm -rf sealos/{cri,Kubefile,opt,scripts/common.sh,images,registry}
 rm -rf tools/Kubefile
-rm -rf k8s/{cri,Kubefile,opt,scripts/common.sh,bin}
+rm -rf k8s/{cri,Kubefile,opt,scripts/common.sh,bin,registry/docker}
 
 pushd "registry" && {
   echo "build registry"
