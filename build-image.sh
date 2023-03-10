@@ -20,7 +20,7 @@ popd
 pushd "sealos" && {
   echo "build sealos"
   bash init.sh ${ARCH} 4.1.6
-  sealos build -t dev-sealos:4.1.6 .
+  sealos build --compress -t dev-sealos:4.1.6 .
 }
 popd
 
