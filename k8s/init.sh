@@ -7,9 +7,7 @@ readonly VERSION=${2:-1.25.0}
 readonly CRICTL_VERSION=${3:-1.25.0}
 
 rm -rf bin
-rm -rf /tmp/runtime-cache/k8s
 mkdir -p "bin"
-mkdir -p "/tmp/runtime-cache/k8s/$ARCH"
 
 pushd "scripts" && {
   cp ../../scripts/common.sh .
@@ -17,13 +15,11 @@ pushd "scripts" && {
 popd
 
 sandboxImage=""
+MOUNT_SEALOS=$(sudo sealos create --platform linux/$ARCH --short "ghcr.io/labring-actions/cache-kubernetes:$VERSION-$ARCH" 2>&1)
+sandboxImage=$(cat ${MOUNT_SEALOS}/images/shim/DefaultImageList | grep pause)
+sandboxImage=${sandboxImage#*/}
 
-pushd "/tmp/runtime-cache/k8s/$ARCH" && {
-  sudo sealos create --short "ghcr.io/labring-actions/cache-kubernetes:${VERSION}-$ARCH" &>mount
-  sandboxImage=$(cat $(cat mount)/images/shim/DefaultImageList | grep pause)
-  sandboxImage=${sandboxImage#*/}
-}
-popd
+cp -rf ${MOUNT_SEALOS}/registry registry
 
 cat <<EOF >"Kubefile"
 FROM scratch

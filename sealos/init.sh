@@ -24,6 +24,9 @@ popd
 
 LvscareImage="ghcr.io/labring/lvscare:v${VERSION}"
 
+cp -rf ${MOUNT_SEALOS}/registry registry
+
+
 pushd "scripts" && {
   cp ../../scripts/common.sh .
 }
@@ -34,6 +37,5 @@ FROM scratch
 MAINTAINER sealos
 LABEL image="$LvscareImage" \
       merge.sealos.io.type.sealos="$VERSION"
-COPY --from=ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH  registry registry
 COPY . .
 EOF

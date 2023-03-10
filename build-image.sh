@@ -8,7 +8,7 @@ rm -rf docker/{cri,Kubefile,opt,scripts/common.sh}
 rm -rf cri-dockerd/{cri,Kubefile,opt,scripts/common.sh,bin}
 rm -rf sealos/{cri,Kubefile,opt,scripts/common.sh,images,registry}
 rm -rf tools/Kubefile
-rm -rf k8s/{cri,Kubefile,opt,scripts/common.sh,bin,registry/docker}
+rm -rf k8s/{cri,Kubefile,opt,scripts/common.sh,bin,registry}
 
 pushd "registry" && {
   echo "build registry"
@@ -48,7 +48,7 @@ popd
 pushd "k8s" && {
   echo "build k8s"
   bash init.sh ${ARCH} 1.23.17 1.23.0
-  sealos build -t dev-k8s:1.23.17 .
+  sealos build --compress --debug -t dev-k8s:1.23.17 .
 }
 popd
 
