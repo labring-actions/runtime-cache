@@ -68,5 +68,12 @@ pushd "runc" && {
 popd
 
 
+pushd "crun" && {
+  echo "build crun"
+  bash init.sh ${ARCH} 1.8.1
+  sealos build --debug -t dev-crun:1.8.1 .
+}
+popd
+
 sealos merge -t dev-merge-docker-k8s:1.23.17 dev-k8s:1.23.17 dev-cri-dockerd:0.2.6 dev-docker:20.10.23 dev-tools dev-sealos:4.1.6 dev-registry:2.8.1 dev-tools
 sealos merge -t dev-merge-containerd-k8s:1.23.17 dev-k8s:1.23.17 dev-containerd:1.6.19 dev-runc:1.1.4 dev-tools dev-sealos:4.1.6 dev-registry:2.8.1 dev-tools

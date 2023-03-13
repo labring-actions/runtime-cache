@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright © 2022 sealos.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,5 +12,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-image-endpoint: unix:///var/run/image-cri-shim.sock
-runtime-endpoint: unix:///run/crio/crio.sock
+source common.sh
+# shellcheck disable=SC2046
+cp ../modules/crun /usr/bin/
+chmod a+x /usr/bin/crun
+logger "init container runtime crun success"

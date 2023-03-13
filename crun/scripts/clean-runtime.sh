@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright © 2022 sealos.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,13 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-shim: /var/run/image-cri-shim.sock
-cri: /run/crio/crio.sock
-address: http://{{ .registryDomain }}:{{ .registryPort }}
-force: true
-debug: false
-image: /var/lib/image-cri-shim
-{{ if not .SEALOS_SYS_KUBE_VERSION }}sync: 0{{ else }}{{ if and (ne .SEALOS_SYS_KUBE_VERSION "") (semverCompare "^1.26.0" .SEALOS_SYS_KUBE_VERSION) }}version: v1{{ else }}version: v1alpha2{{ end }}{{ end  }}
-timeout: 15m
-auth: {{ .registryUsername }}:{{ .registryPassword }}
+cd "$(dirname "$0")" >/dev/null 2>&1 || exit
+source common.sh
+rm -rf /usr/bin/crun
+logger "clean container runtime crun success"
