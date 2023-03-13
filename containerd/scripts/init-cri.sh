@@ -14,10 +14,7 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-REGISTRY_DOMAIN=${1:-sealos.hub}
-REGISTRY_PORT=${2:-5000}
-
 # Install containerd
-if ! bash init-containerd.sh ${REGISTRY_DOMAIN} ${REGISTRY_PORT}; then
+if ! bash init-containerd.sh; then
   error "====init containerd failed!===="
 fi

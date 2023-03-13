@@ -14,30 +14,14 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-storage=${1:-/var/lib/containerd}
-systemctl stop containerd
-systemctl disable containerd
+readonly module_files=../modules/containerd.files
+check_service stop containerd
 rm -rf /etc/containerd
 rm -rf /etc/systemd/system/containerd.service
-systemctl daemon-reload
-rm -rf $storage
-rm -rf /run/containerd/containerd.sock
-rm -rf /var/lib/nerdctl
-
-rm -f /usr/bin/containerd
-rm -f /usr/bin/containerd-stress
-rm -f /usr/bin/containerd-shim
-rm -f /usr/bin/containerd-shim-runc-v1
-rm -f /usr/bin/containerd-shim-runc-v2
-rm -f /usr/bin/crictl
-rm -f /etc/crictl.yaml
-rm -f /usr/bin/ctr
-rm -f /usr/bin/ctd-decoder
-rm -f /usr/bin/runc
-rm -f /usr/bin/nerdctl
-
-rm -rf /opt/containerd
-rm -rf /etc/ld.so.conf.d/containerd.conf
-ldconfig
-
+rm -rf ${criData}
+awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | xargs rm -fv
+rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
+#rm -rf /opt/containerd
+#rm -rf /etc/ld.so.conf.d/containerd.conf
+#ldconfig
 logger "clean containerd success"

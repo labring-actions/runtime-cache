@@ -14,14 +14,11 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-storage=${1:-/var/lib/registry}
 
 if command_exists docker; then
   error "docker already exist, uninstall docker and retry"
 fi
-check_cmd_exits docker
 check_file_exits /var/run/docker.sock
-check_file_exits $storage
 if ! command_exists apparmor_parser; then
   sed -i 's/disable_apparmor = false/disable_apparmor = true/g' ../etc/config.toml
   warn "Replace disable_apparmor = false to disable_apparmor = true"

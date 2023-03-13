@@ -1,2 +1,4 @@
 init.sh
 .DS_Store
+.gitignore
+.dockerignore

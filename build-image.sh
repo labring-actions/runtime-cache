@@ -9,6 +9,7 @@ rm -rf cri-dockerd/{cri,Kubefile,opt,scripts/common.sh,bin}
 rm -rf sealos/{cri,Kubefile,opt,scripts/common.sh,images,registry}
 rm -rf tools/Kubefile
 rm -rf k8s/{cri,Kubefile,opt,scripts/common.sh,bin,registry}
+rm -rf containerd/{cri,Kubefile,opt,scripts/common.sh,bin}
 
 pushd "registry" && {
   echo "build registry"
@@ -52,4 +53,12 @@ pushd "k8s" && {
 }
 popd
 
-sealos merge -t dev-merge-k8s:1.23.17 dev-k8s:1.23.17 dev-cri-dockerd:0.2.6 dev-docker:20.10.23 dev-tools dev-sealos:4.1.6 dev-registry:2.8.1 dev-tools
+pushd "containerd" && {
+  echo "build containerd"
+  bash init.sh ${ARCH} 1.6.19
+  sealos build --debug -t dev-containerd:1.6.19 .
+}
+popd
+
+sealos merge -t dev-merge-docker-k8s:1.23.17 dev-k8s:1.23.17 dev-cri-dockerd:0.2.6 dev-docker:20.10.23 dev-tools dev-sealos:4.1.6 dev-registry:2.8.1 dev-tools
+sealos merge -t dev-merge-containerd-k8s:1.23.17 dev-k8s:1.23.17 dev-containerd:1.6.19 dev-tools dev-sealos:4.1.6 dev-registry:2.8.1 dev-tools

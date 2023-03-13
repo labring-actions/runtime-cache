@@ -11,18 +11,19 @@ pushd "scripts" && {
 popd
 
 cat <<EOF >"Kubefile"
-FROM ghcr.io/labring-actions/cache-docker:$VERSION-$ARCH
+FROM ghcr.io/labring-actions/cache-containerd:$VERSION-$ARCH
 MAINTAINER sealos
 LABEL check="check.sh" \
       auth="auth.sh" \
-      merge.sealos.io.type.docker="$VERSION"
-ENV criData=/var/lib/docker \
-    criDockerdData=/var/lib/cri-dockerd \
+      merge.sealos.io.type.containerd="$VERSION"
+ENV criData=/var/lib/containerd \
+    criContainerdData=/run/containerd \
     registryDomain=sealos.hub \
     registryPort=5000 \
     registryUsername=admin \
     registryPassword=passw0rd \
-    criCgroupdriver=systemd \
-    SEALOS_SYS_CRI_ENDPOINT=/var/run/containerd.sock
+    criSystemdCgroup=true \
+    criDisableApparmor=false \
+    SEALOS_SYS_CRI_ENDPOINT=/run/containerd/containerd.sock
 COPY . .
 EOF

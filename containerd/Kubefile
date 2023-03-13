@@ -1,24 +1,5 @@
-FROM scratch
+FROM ghcr.io/labring-actions/cache-containerd:1.6.19-arm64
 MAINTAINER sealos
-LABEL init="init-cri.sh && bash init.sh" \
-      clean="clean.sh && bash clean-cri.sh \$criData" \
-      check="check.sh \$registryData" \
-      init-registry="init-registry.sh \$registryData \$registryConfig" \
-      clean-registry="clean-registry.sh \$registryData \$registryConfig" \
-      auth="auth.sh" \
-      sealos.io.type="rootfs" \
-      sealos.io.version="v1beta1" \
-      version="v0.0.0" \
-      image="__lvscare__" \
-      vip="\$defaultVIP"
-ENV criData=/var/lib/containerd \
-    registryData=/var/lib/registry \
-    registryConfig=/etc/registry \
-    registryDomain=sealos.hub \
-    registryPort=5000 \
-    registryUsername=admin \
-    registryPassword=passw0rd \
-    disableApparmor=false \
-    sandboxImage=__pause__ \
-    defaultVIP=10.103.97.2
+LABEL check="check.sh"       auth="auth.sh"       merge.sealos.io.type.containerd="1.6.19"
+ENV criData=/var/lib/containerd     criContainerdData=/run/containerd     registryDomain=sealos.hub     registryPort=5000     registryUsername=admin     registryPassword=passw0rd     criSystemdCgroup=true     criDisableApparmor=false     SEALOS_SYS_CRI_ENDPOINT=/run/containerd/containerd.sock
 COPY . .

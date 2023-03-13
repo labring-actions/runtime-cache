@@ -7,7 +7,7 @@
     "max-file": "3"
   },
   "exec-opts": [
-    "native.cgroupdriver=systemd"
+    "native.cgroupdriver={{ .criCgroupdriver }}"
   ],
   "insecure-registries": [
     "{{ .registryDomain }}:{{ .registryPort }}"

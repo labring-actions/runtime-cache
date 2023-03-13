@@ -19,5 +19,5 @@ rm -rf /etc/systemd/system/cri-docker.service
 rm -rf /etc/systemd/system/cri-docker.socket
 rm -rf ${criDockerdData}
 rm -f /usr/bin/cri-dockerd
-rm -f /var/run/cri-dockerd.sock
+rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
 logger "clean cri-dockerd success"

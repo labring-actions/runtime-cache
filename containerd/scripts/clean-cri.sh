@@ -14,8 +14,5 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-storage=${1:-/var/lib/containerd}
-
-bash clean-containerd.sh $storage
-
+bash clean-containerd.sh
 logger "clean containerd cri success"
