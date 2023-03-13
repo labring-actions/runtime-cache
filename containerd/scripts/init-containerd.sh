@@ -15,9 +15,6 @@
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
 readonly module_files=../modules/containerd.files
-#mkdir -p /opt/containerd && tar -zxf ../cri/libseccomp.tar.gz -C /opt/containerd
-#echo "/opt/containerd/lib" >/etc/ld.so.conf.d/containerd.conf
-#ldconfig
 [ -d /etc/containerd/certs.d/ ] || mkdir /etc/containerd/certs.d/ -p
 cp ../etc/containerd.service /etc/systemd/system/
 tar -zxf ../modules/containerd -C /usr/

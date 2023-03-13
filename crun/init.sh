@@ -3,7 +3,7 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
 readonly ARCH=${1:-amd64}
-readonly VERSION=${2:-1.6.19}
+readonly VERSION=${2:-19.03.15}
 
 pushd "scripts" && {
   cp ../../scripts/common.sh .
