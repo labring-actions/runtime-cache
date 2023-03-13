@@ -14,20 +14,13 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-storage=${1:-/var/lib/crio}
+readonly module_files=../modules/crio.files
 
 check_service stop crio
-
-tar xfz ../cri/cri-o.tar.gz
-echo Uninstalling CRI-O
-pushd cri-o >/dev/null || exit
-if [[ -s ../../cri/crio.files ]]; then
-  xargs <../../cri/crio.files rm -f && date
-else
-  make uninstall
-fi
-popd >/dev/null || exit
-
-rm -rf "$storage"
+rm -rf /etc/crio
+rm -rf /etc/systemd/system/crio.service
+rm -rf ${criData}
+awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | xargs rm -fv
+rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
 
 logger "clean crio success"

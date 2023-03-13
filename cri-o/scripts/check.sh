@@ -14,12 +14,9 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-storage=${1:-/var/lib/registry}
-
 if command_exists docker; then
   error "Please using docker image: labring/kubernetes-docker:v1.23.10 or uninstall docker retry"
 fi
 check_cmd_exits crio
-check_file_exits /var/run/crio/crio.sock
-check_file_exits $storage
+check_file_exits ${SEALOS_SYS_CRI_ENDPOINT}
 logger "check root,port,cri success"

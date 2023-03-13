@@ -14,8 +14,5 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-storage=${1:-/var/lib/crio}
-
-bash clean-crio.sh $storage
-
+bash clean-crio.sh
 logger "clean cri-o success"

@@ -14,12 +14,8 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-registry_domain=${1:-sealos.hub}
-registry_port=${2:-5000}
-registry_username=${3:-}
-registry_password=${4:-}
 # Install cri-o
-if ! bash init-crio.sh ${registry_domain} ${registry_port} ${registry_username} ${registry_password}; then
+if ! bash init-crio.sh ; then
   error "====init crio failed!===="
 fi
 

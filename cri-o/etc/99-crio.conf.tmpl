@@ -1,8 +1,22 @@
 [crio]
 root = "{{ .criData }}"
+runroot = "/run/containers/storage"
 [crio.image]
 global_auth_file = "/etc/crio/config.json"
-pause_image = "{{ .registryDomain }}:{{ .registryPort }}/{{ .sandboxImage }}"
+pause_image = "{{ .registryDomain }}:{{ .registryPort }}/{{ .SEALOS_SYS_SANDBOX_IMAGE }}"
 insecure_registries = [
 "{{ .registryDomain }}:{{ .registryPort }}"
+]
+[crio.api]
+listen = "/var/run/crio/crio.sock"
+[crio.runtime]
+cgroup_manager = "systemd"
+pids_limit = 1024
+log_size_max = -1
+log_to_journald = true
+default_runtime = "crun"
+
+[crio.runtime.runtimes.crun]
+allowed_annotations = [
+    "io.containers.trace-syscall",
 ]
