@@ -22,7 +22,6 @@ ENV criData=/var/lib/docker \
     registryPort=5000 \
     registryUsername=admin \
     registryPassword=passw0rd \
-    criCgroupdriver=systemd \
-    SEALOS_SYS_CRI_ENDPOINT=/var/run/containerd.sock
+    criCgroupdriver=systemd
 COPY . .
 EOF
