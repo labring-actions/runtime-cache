@@ -10,6 +10,10 @@ rm -rf sealos/{cri,Kubefile,opt,scripts/common.sh,images,registry}
 rm -rf tools/Kubefile
 rm -rf k8s/{cri,Kubefile,opt,scripts/common.sh,bin,registry}
 rm -rf containerd/{cri,Kubefile,opt,scripts/common.sh,bin}
+rm -rf crun/{cri,Kubefile,opt,scripts/common.sh,bin}
+rm -rf runc/{cri,Kubefile,opt,scripts/common.sh,bin}
+rm -rf cri-o/{cri,Kubefile,opt,scripts/common.sh,bin}
+
 
 pushd "registry" && {
   echo "build registry"
