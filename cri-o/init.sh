@@ -17,13 +17,12 @@ LABEL check="check.sh" \
       auth="auth.sh" \
       merge.sealos.io.type.cri-o="$VERSION"
 ENV criData=/var/lib/crio \
-    criContainerdData=/run/containerd \
+    criCRIOData=/run/crio \
     registryDomain=sealos.hub \
     registryPort=5000 \
     registryUsername=admin \
     registryPassword=passw0rd \
-    criSystemdCgroup=true \
-    criDisableApparmor=false \
+    criCgroupdriver=systemd \
     SEALOS_SYS_CRI_ENDPOINT=/var/run/crio/crio.sock
 COPY . .
 EOF

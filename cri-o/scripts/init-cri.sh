@@ -14,9 +14,17 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-# Install cri-o
-if ! bash init-crio.sh ; then
-  error "====init crio failed!===="
+
+mkdir -p /etc/crio/crio.conf.d
+cp ../etc/99-crio.conf /etc/crio/crio.conf.d/
+cp ../etc/crio.conf /etc/crio/
+cp ../etc/crio.service /etc/systemd/system/
+if ! [ -s /etc/containers/policy.json ];then
+  mkdir -p /etc/containers && cp ../etc/policy.json /etc/containers
 fi
+cp ../etc/config.json /etc/crio
+
+check_service start crio
+check_status crio
 
 logger "init crio success"

@@ -14,5 +14,14 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-bash clean-crio.sh
-logger "clean cri-o success"
+readonly module_files=../modules/crio.files
+
+check_service stop crio
+rm -rf /etc/crio
+rm -rf /etc/systemd/system/crio.service
+rm -rf ${criData}
+rm -rf ${criCRIOData}
+awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | xargs rm -fv
+rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
+
+logger "clean crio success"
