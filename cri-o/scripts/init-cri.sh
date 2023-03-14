@@ -14,7 +14,7 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-
+tar -zxf ../modules/cri-o -C /usr/
 mkdir -p /etc/crio/crio.conf.d
 cp ../etc/99-crio.conf /etc/crio/crio.conf.d/
 cp ../etc/crio.conf /etc/crio/

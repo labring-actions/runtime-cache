@@ -14,7 +14,7 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-readonly module_files=../modules/crio.files
+readonly module_files=../modules/cri-o.files
 
 check_service stop crio
 rm -rf /etc/crio
