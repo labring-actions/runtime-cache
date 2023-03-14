@@ -4,7 +4,7 @@ state = "{{ .criContainerdData }}"
 oom_score = 0
 
 [grpc]
-  address = "/run/containerd/containerd.sock"
+  address = "{{ .SEALOS_SYS_CRI_ENDPOINT }}"
   uid = 0
   gid = 0
   max_recv_message_size = 16777216
