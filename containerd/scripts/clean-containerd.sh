@@ -19,6 +19,7 @@ check_service stop containerd
 rm -rf /etc/containerd
 rm -rf /etc/systemd/system/containerd.service
 rm -rf ${criData}
+rm -rf ${criContainerdData}
 awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | xargs rm -fv
 rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
 #rm -rf /opt/containerd
