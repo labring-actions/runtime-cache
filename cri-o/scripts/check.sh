@@ -17,6 +17,5 @@ source common.sh
 if command_exists docker; then
   error "Please using docker image: labring/kubernetes-docker:v1.23.10 or uninstall docker retry"
 fi
-check_cmd_exits crio
 check_file_exits ${SEALOS_SYS_CRI_ENDPOINT}
 logger "check root,port,cri success"

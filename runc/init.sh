@@ -16,5 +16,6 @@ MAINTAINER sealos
 LABEL init="init-runtime.sh && bash init-cri.sh && bash init.sh" \
       clean="clean.sh && bash clean-cri.sh && bash clean-runtime.sh" \
       merge.sealos.io.type.runc="$VERSION"
+ENV SEALOS_SYS_CRI_RUNTIME=runc
 COPY . .
 EOF

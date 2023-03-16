@@ -18,10 +18,10 @@ source common.sh
 mkdir -p ../cri && tar -zxf ../modules/cri-o -C ../cri
 
 # install crio
-cp -rf ../cri/cri-o/bin/{conmon,crio,crio-status,pinns} /usr/bin/
+tar -zxf ../modules/cri-o -C /usr/
 # install crio config
 mkdir -p /etc/crio/crio.conf.d
-cp ../cri/cri-o/etc/crio.conf /etc/crio/
+cp ../etc/crio.conf /etc/crio/
 cp ../etc/99-crio.conf /etc/crio/crio.conf.d/
 cp ../etc/crio.service /etc/systemd/system/
 if ! [ -s /etc/containers/policy.json ];then
