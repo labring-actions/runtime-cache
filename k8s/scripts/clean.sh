@@ -17,7 +17,6 @@ source common.sh
 
 bash clean-kube.sh
 bash clean-shim.sh
-
 rm -f /usr/bin/crictl
 rm -f /etc/crictl.yaml
 

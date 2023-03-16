@@ -21,7 +21,9 @@ cgroup_manager = "{{ .criCgroupdriver }}"
 {{ if eq .criDisableApparmor "true" }}apparmor_profile = "unconfined"{{ else }}apparmor_profile = "crio-default"{{ end }}
 pids_limit = 1024
 log_size_max = -1
-log_to_journald = true
+#https://github.com/cri-o/cri-o/issues/6740 panic using this option
+#log_to_journald = true
+log_level = "info"
 default_runtime = "crun"
 
 [crio.runtime.runtimes.crun]

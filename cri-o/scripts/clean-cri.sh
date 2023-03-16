@@ -21,10 +21,4 @@ rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
 rm -rf ${criData}
 rm -rf ${criCRIOData}
 rm -rf /usr/bin/{crio,crio-status,conmon,pinns}
-{
-  rm -fv /etc/cni/net.d/*.conf
-  rm -fv /opt/cni/bin/*
-  ip link delete cni0
-}
-
 logger "clean crio success"
