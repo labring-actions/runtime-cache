@@ -14,14 +14,17 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-readonly module_files=../modules/cri-o.files
-
 check_service stop crio
 rm -rf /etc/crio
 rm -rf /etc/systemd/system/crio.service
+rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
 rm -rf ${criData}
 rm -rf ${criCRIOData}
-awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | xargs rm -fv
-rm -rf ${SEALOS_SYS_CRI_ENDPOINT}
+rm -rf /usr/bin/{crio,crio-status,conmon,pinns}
+{
+  rm -fv /etc/cni/net.d/*.conf
+  rm -fv /opt/cni/bin/*
+  ip link delete cni0
+}
 
 logger "clean crio success"

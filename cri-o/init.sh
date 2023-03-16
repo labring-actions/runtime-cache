@@ -23,6 +23,7 @@ ENV criData=/var/lib/crio \
     registryUsername=admin \
     registryPassword=passw0rd \
     criCgroupdriver=systemd \
+    criDisableApparmor=false \
     SEALOS_SYS_CRI_ENDPOINT=/var/run/crio/crio.sock
 COPY . .
 EOF

@@ -14,10 +14,24 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-tar -zxf ../modules/cri-o -C /usr/
+# Use other network plugin, eg: calico.
+{
+  rm -fv /etc/cni/net.d/*.conf
+  rm -fv /opt/cni/bin/*
+  mkdir -p /etc/cni/net.d
+  mkdir -p /opt/cni/bin
+}
+
+mkdir -p ../cri && tar -zxf ../modules/cri-o -C ../cri
+
+# install crio
+cp -rf ../cri/cri-o/bin/{conmon,crio,crio-status,pinns} /usr/bin/
+# install cni
+cp -rf ../cri/cri-o/cni-plugins/* /opt/cni/bin/
+cp -rf ../etc/10-crio-bridge.conf /etc/cni/net.d/
+# install crio config
 mkdir -p /etc/crio/crio.conf.d
 cp ../etc/99-crio.conf /etc/crio/crio.conf.d/
-cp ../etc/crio.conf /etc/crio/
 cp ../etc/crio.service /etc/systemd/system/
 if ! [ -s /etc/containers/policy.json ];then
   mkdir -p /etc/containers && cp ../etc/policy.json /etc/containers
