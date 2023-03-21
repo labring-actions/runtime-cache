@@ -21,7 +21,7 @@ pushd "registry" && {
 }
 popd
 
-pushd "sealos-build" && {
+pushd "sealos" && {
   echo "build sealos"
   bash init.sh ${ARCH} 4.1.6
   sealos build --platform linux/${ARCH} --compress -t dev-sealos:4.1.6-${ARCH} .

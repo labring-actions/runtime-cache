@@ -17,7 +17,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+      - name: Auto mv sealos
+        run: |
+          mv sealos sealos-build
       - name: Auto install sealos
         uses: labring/sealos-action@v0.0.7
         with:
@@ -26,6 +28,7 @@ jobs:
           sealosVersion: 4.2.0-alpha1
       - name: Auto build image
         run: |
+          mv sealos sealos-build
           sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
           sudo bash build-image.sh amd64
           sudo sealos push ghcr.io/labring-actions/dev-merge-docker-k8s:1.23.17-amd64
