@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
 readonly ARCH=${1:-amd64}
