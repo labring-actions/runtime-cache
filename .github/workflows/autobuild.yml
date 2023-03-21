@@ -23,7 +23,7 @@ jobs:
         with:
           type: install
           pruneCRI: true
-          sealosVersion: v4.2.0-alpha1
+          sealosVersion: 4.2.0-alpha1
       - name: Auto build image
         env:
           username: labring-actions
