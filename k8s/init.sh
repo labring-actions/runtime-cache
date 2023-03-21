@@ -15,6 +15,7 @@ pushd "scripts" && {
 popd
 
 sandboxImage=""
+sudo sealos pull --platform linux/$ARCH "ghcr.io/labring-actions/cache-kubernetes:$VERSION-$ARCH"
 MOUNT_SEALOS=$(sudo sealos create --platform linux/$ARCH --short "ghcr.io/labring-actions/cache-kubernetes:$VERSION-$ARCH" 2>&1)
 sandboxImage=$(cat ${MOUNT_SEALOS}/images/shim/DefaultImageList | grep pause)
 sandboxImage=${sandboxImage#*/}

@@ -8,6 +8,8 @@ readonly VERSION=${2:-4.1.6}
 mkdir -p "cri"
 mkdir -p "opt"
 
+sudo sealos pull --platform linux/$ARCH "ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH"
+
 MOUNT_SEALOS=$(sudo sealos create --platform linux/$ARCH --short "ghcr.io/labring-actions/cache-sealos:$VERSION-$ARCH" 2>&1)
 
 pushd "cri" && {
