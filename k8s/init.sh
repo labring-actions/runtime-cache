@@ -33,7 +33,8 @@ LABEL init="init-cri.sh && bash init.sh" \
       sealos.io.type="rootfs" \
       sealos.io.version="v1beta2" \
       version="v${VERSION}" \
-      vip="\\\$defaultVIP"
+      vip="\\\$defaultVIP" \
+      org.opencontainers.image.source https://github.com/labring-actions/runtime-cache
 ENV SEALOS_SYS_SANDBOX_IMAGE=${sandboxImage} \
     defaultVIP=10.103.97.2
 COPY --from=ghcr.io/labring-actions/cache-cri-tools:${CRICTL_VERSION}-$ARCH . .
