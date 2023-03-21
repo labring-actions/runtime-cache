@@ -21,6 +21,8 @@ sandboxImage=$(cat ${MOUNT_SEALOS}/images/shim/DefaultImageList | grep pause)
 sandboxImage=${sandboxImage#*/}
 
 cp -rf ${MOUNT_SEALOS}/registry registry
+cp -rf ${MOUNT_SEALOS}/modules modules
+
 
 cat <<EOF >"Kubefile"
 FROM scratch
