@@ -20,8 +20,6 @@ check_k8s_port_inuse
 tar -C /usr/bin/ -zxf ../modules/cri-tools crictl
 [ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
 
-tar -zxf ../modules/kube -C ../
-
 if ! bash init-shim.sh; then
   error "====init image-cri-shim failed!===="
 fi
