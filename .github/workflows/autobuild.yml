@@ -27,7 +27,7 @@ jobs:
       - name: Auto build image
         run: |
           sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
-          bash build-image.sh amd64
+          sudo bash build-image.sh amd64
           sudo sealos push ghcr.io/labring-actions/dev-merge-docker-k8s:1.23.17-amd64
           sudo sealos push ghcr.io/labring-actions/dev-merge-containerd-k8s:1.23.17-amd64
           sudo sealos push ghcr.io/labring-actions/dev-merge-crio-k8s:1.23.17-amd64
