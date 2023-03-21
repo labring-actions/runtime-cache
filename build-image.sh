@@ -2,7 +2,6 @@
 
 set -e
 ARCH=${1:-arm64}
-
 rm -rf registry/{cri,Kubefile,opt,scripts/common.sh}
 rm -rf docker/{cri,Kubefile,opt,scripts/common.sh}
 rm -rf cri-dockerd/{cri,Kubefile,opt,scripts/common.sh,bin}
@@ -86,6 +85,6 @@ pushd "cri-o" && {
 }
 popd
 set -x
-#sealos merge --platform linux/${ARCH} -t dev-merge-docker-k8s:1.23.17-${ARCH} dev-k8s:1.23.17-${ARCH} dev-cri-dockerd:0.2.6-${ARCH} dev-docker:20.10.23-${ARCH} dev-sealos:4.1.6-${ARCH} dev-registry:2.8.1-${ARCH} dev-tools:latest-${ARCH}
-#sealos merge --platform linux/${ARCH} -t dev-merge-containerd-k8s:1.23.17-${ARCH} dev-k8s:1.23.17-${ARCH} dev-containerd:1.6.19-${ARCH} dev-runc:1.1.4-${ARCH}  dev-sealos:4.1.6-${ARCH} dev-registry:2.8.1-${ARCH} dev-tools:latest-${ARCH}
-sealos merge --platform linux/${ARCH} -t dev-merge-crio-k8s:1.23.17-${ARCH} dev-k8s:1.23.17-${ARCH} dev-crio:1.23.5-${ARCH} dev-crun:1.8.1-${ARCH}   dev-sealos:4.1.6-${ARCH} dev-registry:2.8.1-${ARCH} dev-tools:latest-${ARCH}
+sealos merge --platform linux/${ARCH} -t ghcr.io/labring-actions/dev-merge-docker-k8s:1.23.17-${ARCH} dev-k8s:1.23.17-${ARCH} dev-cri-dockerd:0.2.6-${ARCH} dev-docker:20.10.23-${ARCH} dev-sealos:4.1.6-${ARCH} dev-registry:2.8.1-${ARCH} dev-tools:latest-${ARCH}
+sealos merge --platform linux/${ARCH} -t ghcr.io/labring-actions/dev-merge-containerd-k8s:1.23.17-${ARCH} dev-k8s:1.23.17-${ARCH} dev-containerd:1.6.19-${ARCH} dev-runc:1.1.4-${ARCH}  dev-sealos:4.1.6-${ARCH} dev-registry:2.8.1-${ARCH} dev-tools:latest-${ARCH}
+sealos merge --platform linux/${ARCH} -t ghcr.io/labring-actions/dev-merge-crio-k8s:1.23.17-${ARCH} dev-k8s:1.23.17-${ARCH} dev-crio:1.23.5-${ARCH} dev-crun:1.8.1-${ARCH}   dev-sealos:4.1.6-${ARCH} dev-registry:2.8.1-${ARCH} dev-tools:latest-${ARCH}

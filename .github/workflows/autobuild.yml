@@ -1,0 +1,37 @@
+name: build image
+on:
+  workflow_dispatch:
+    inputs:
+      sealosPatch:
+        description: 'sealos patch image for development.'
+        required: true
+        default: ghcr.io/labring/sealos-patch:dev
+  issue_comment:
+    types:
+      - created
+jobs:
+  build-images:
+    if: contains(github.event.inputs.sealosPatch, 'sealos')
+    name: building
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Auto install sealos
+        uses: labring/sealos-action@v0.0.7
+        with:
+          type: install
+          pruneCRI: true
+          sealosVersion: v4.2.0-alpha1
+      - name: Auto build image
+        env:
+          username: labring-actions
+          password: ${{ secrets.G_REGISTRY_TOKEN }}
+        run: |
+          sudo sealos login  -u labring-actions -p $password  ghcr.io
+          bash build-image.sh amd64
+          sudo sealos push ghcr.io/labring-actions/dev-merge-docker-k8s:1.23.17-amd64
+          sudo sealos push ghcr.io/labring-actions/dev-merge-containerd-k8s:1.23.17-amd64
+          sudo sealos push ghcr.io/labring-actions/dev-merge-crio-k8s:1.23.17-amd64
+
