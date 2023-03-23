@@ -26,6 +26,10 @@ jobs:
           type: install
           pruneCRI: true
           sealosVersion: 4.2.0-alpha1
+      - name: Remove containerd && docker
+        uses: labring/sealos-action@v0.0.7
+        with:
+          type: prune
       - name: Auto build image
         run: |
           mv sealos-build sealos 
