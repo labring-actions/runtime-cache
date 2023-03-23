@@ -27,7 +27,7 @@ cp ../etc/crio.service /etc/systemd/system/
 if ! [ -s /etc/containers/policy.json ];then
   mkdir -p /etc/containers && cp ../etc/policy.json /etc/containers
 fi
-cp ../etc/config.json /etc/crio
+#cp ../etc/config.json /etc/crio
 
 check_service start crio
 check_status crio

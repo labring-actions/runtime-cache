@@ -1,7 +1,0 @@
-{
-    "auths":{
-        "{{ .registryDomain }}:{{ .registryPort }}":{
-            "auth":"{{(b64enc (printf "%s:%s" .registryUsername .registryPassword))}}"
-        }
-    }
-}
