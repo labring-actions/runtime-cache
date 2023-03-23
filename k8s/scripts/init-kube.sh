@@ -25,6 +25,7 @@ bash /usr/bin/kubelet-pre-start.sh
 source common.sh
 disable_firewalld
 
+../opt/upx -d ../bin/{kubeadm,kubectl,kubelet}
 cp -a ../bin/* /usr/bin
 mkdir -p /etc/systemd/system
 cp ../etc/kubelet.service /etc/systemd/system/
