@@ -10,7 +10,34 @@ on:
     types:
       - created
 jobs:
-  build-images:
+  build-images-containerd:
+    if: contains(github.event.inputs.sealosPatch, 'sealos')
+    name: building
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Auto mv sealos
+        run: |
+          mv sealos sealos-build
+      - name: Auto install sealos
+        uses: labring/sealos-action@v0.0.7
+        with:
+          type: install
+          pruneCRI: true
+          sealosVersion: 4.2.0-alpha1
+      - name: Remove containerd && docker
+        uses: labring/sealos-action@v0.0.7
+        with:
+          type: prune
+      - name: Auto build image
+        run: |
+          mv sealos-build sealos 
+          sudo bash build-image.sh amd64  ghcr.io/labring-actions-test
+          sudo sealos run  ghcr.io/labring-actions-test/dev-merge-containerd-k8s:1.23.17-amd64  --single --debug
+          sudo crictl images
+
+  build-images-docker:
     if: contains(github.event.inputs.sealosPatch, 'sealos')
     name: building
     runs-on: ubuntu-20.04
@@ -35,4 +62,31 @@ jobs:
           mv sealos-build sealos 
           sudo bash build-image.sh amd64  ghcr.io/labring-actions-test
           sudo sealos run  ghcr.io/labring-actions-test/dev-merge-docker-k8s:1.23.17-amd64  --single --debug
+          sudo crictl images
+
+  build-images-crio:
+    if: contains(github.event.inputs.sealosPatch, 'sealos')
+    name: building
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Auto mv sealos
+        run: |
+          mv sealos sealos-build
+      - name: Auto install sealos
+        uses: labring/sealos-action@v0.0.7
+        with:
+          type: install
+          pruneCRI: true
+          sealosVersion: 4.2.0-alpha1
+      - name: Remove containerd && docker
+        uses: labring/sealos-action@v0.0.7
+        with:
+          type: prune
+      - name: Auto build image
+        run: |
+          mv sealos-build sealos 
+          sudo bash build-image.sh amd64  ghcr.io/labring-actions-test
+          sudo sealos run  ghcr.io/labring-actions-test/dev-merge-cri-o-k8s:1.23.17-amd64  --single --debug
           sudo crictl images
