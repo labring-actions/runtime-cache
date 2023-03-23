@@ -85,5 +85,5 @@ jobs:
         run: |
           mv sealos-build sealos 
           sudo bash build-image.sh amd64  ghcr.io/labring-actions-test
-          sudo sealos run  ghcr.io/labring-actions-test/dev-merge-cri-o-k8s:1.23.17-amd64  --single --debug
+          sudo sealos run  ghcr.io/labring-actions-test/dev-merge-crio-k8s:1.23.17-amd64  --single --debug
           sudo crictl images
