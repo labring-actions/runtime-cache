@@ -30,7 +30,11 @@ jobs:
           mv sealos-build sealos 
           sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
           sudo bash build-image.sh amd64
-          sudo sealos push ghcr.io/labring-actions/{dev-merge-docker-k8s:1.23.17-amd64,dev-merge-containerd-k8s:1.23.17-amd64,dev-merge-crio-k8s:1.23.17-amd64}
+          IMAGE_FILE="build-image.files"
+          while IFS= read -r image; do
+            echo "Pushing image: $image"
+            sudo sealos push "$image"
+          done < "$IMAGE_FILE"
 
 
   build-images-arm64:
@@ -53,5 +57,9 @@ jobs:
           mv sealos-build sealos 
           sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
           sudo bash build-image.sh arm64
-          sudo sealos push ghcr.io/labring-actions/{dev-merge-docker-k8s:1.23.17-arm64,dev-merge-containerd-k8s:1.23.17-arm64,dev-merge-crio-k8s:1.23.17-arm64}
+          IMAGE_FILE="build-image.files"
+          while IFS= read -r image; do
+            echo "Pushing image: $image"
+            sudo sealos push "$image"
+          done < "$IMAGE_FILE"
 
