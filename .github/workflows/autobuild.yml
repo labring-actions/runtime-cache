@@ -10,9 +10,8 @@ on:
     types:
       - created
 jobs:
-  build-images:
+  build-images-amd64:
     if: contains(github.event.inputs.sealosPatch, 'sealos')
-    name: building
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -31,7 +30,28 @@ jobs:
           mv sealos-build sealos 
           sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
           sudo bash build-image.sh amd64
-          sudo sealos push ghcr.io/labring-actions/dev-merge-docker-k8s:1.23.17-amd64
-          sudo sealos push ghcr.io/labring-actions/dev-merge-containerd-k8s:1.23.17-amd64
-          sudo sealos push ghcr.io/labring-actions/dev-merge-crio-k8s:1.23.17-amd64
+          sudo sealos push ghcr.io/labring-actions/{dev-merge-docker-k8s:1.23.17-amd64,dev-merge-containerd-k8s:1.23.17-amd64,dev-merge-crio-k8s:1.23.17-amd64}
+
+
+  build-images-arm64:
+    if: contains(github.event.inputs.sealosPatch, 'sealos')
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Auto mv sealos
+        run: |
+          mv sealos sealos-build
+      - name: Auto install sealos
+        uses: labring/sealos-action@v0.0.7
+        with:
+          type: install
+          pruneCRI: true
+          sealosVersion: 4.2.0-alpha1
+      - name: Auto build image
+        run: |
+          mv sealos-build sealos 
+          sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
+          sudo bash build-image.sh arm64
+          sudo sealos push ghcr.io/labring-actions/{dev-merge-docker-k8s:1.23.17-arm64,dev-merge-containerd-k8s:1.23.17-arm64,dev-merge-crio-k8s:1.23.17-arm64}
 
