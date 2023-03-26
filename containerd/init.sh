@@ -14,7 +14,6 @@ cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-containerd:$VERSION-$ARCH
 MAINTAINER sealos
 LABEL check="check.sh" \
-      auth="auth.sh" \
       merge.sealos.io.type.containerd="$VERSION"
 ENV criData=/var/lib/containerd \
     criContainerdData=/run/containerd \

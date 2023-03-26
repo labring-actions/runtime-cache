@@ -14,7 +14,6 @@ cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-cri-o:$VERSION-$ARCH
 MAINTAINER sealos
 LABEL check="check.sh" \
-      auth="auth.sh" \
       merge.sealos.io.type.cri-o="$VERSION"
 ENV criData=/var/lib/crio \
     criCRIOData=/run/crio \

@@ -14,7 +14,6 @@ cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-docker:$VERSION-$ARCH
 MAINTAINER sealos
 LABEL check="check.sh" \
-      auth="auth.sh" \
       merge.sealos.io.type.docker="$VERSION"
 ENV criData=/var/lib/docker \
     criDockerdData=/var/lib/cri-dockerd \

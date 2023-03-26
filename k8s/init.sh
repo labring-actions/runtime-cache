@@ -32,6 +32,7 @@ LABEL init="init-cri.sh && bash init.sh" \
       merge.sealos.io.type.kube="$VERSION" \
       sealos.io.type="rootfs" \
       sealos.io.version="v1beta2" \
+      sealos.io.runtime="k8s" \
       version="v${VERSION}" \
       vip="\\\$defaultVIP" \
       org.opencontainers.image.source=https://github.com/labring-actions/runtime-cache
