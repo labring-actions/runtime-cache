@@ -43,12 +43,12 @@ cat <<EOF >/etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.conf.all.rp_filter=0
+net.ipv4.ip_forward=1
+net.ipv4.ip_local_port_range="1024 65535"
+net.core.somaxconn=65535
+fs.file-max=1048576
 EOF
 sysctl --system
-sysctl -w net.ipv4.ip_forward=1
-sysctl -w net.ipv4.ip_local_port_range="1024 65535"
-sysctl -w net.core.somaxconn=65535
-sysctl -w fs.file-max=1048576
 # systemctl stop firewalld && systemctl disable firewalld
 swapoff -a || true
 disable_selinux
