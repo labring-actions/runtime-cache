@@ -2,19 +2,20 @@
 set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
+echo
+echo "build ... ${PWD##*/}"
+
 readonly ARCH=${1:-amd64}
 readonly VERSION=${2:-19.03.15}
 
-pushd "scripts" && {
-  cp ../../scripts/common.sh .
-}
-popd
+readonly MODULE=${PWD##*/}
+cp -a ../scripts/common.sh scripts
 
 cat <<EOF >"Kubefile"
-FROM ghcr.io/labring-actions/cache-docker:$VERSION-$ARCH
+FROM ghcr.io/labring-actions/cache-$MODULE:$VERSION-$ARCH
+LABEL merge.sealos.io.type.$MODULE="$VERSION"
 MAINTAINER sealos
-LABEL check="check.sh" \
-      merge.sealos.io.type.docker="$VERSION"
+LABEL check="check.sh"
 ENV criData=/var/lib/docker \
     criDockerdData=/var/lib/cri-dockerd \
     registryDomain=sealos.hub \
