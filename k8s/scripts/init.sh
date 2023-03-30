@@ -18,7 +18,7 @@ source common.sh
 check_k8s_port_inuse
 
 tar -C /usr/bin/ -zxf ../modules/cri-tools crictl
-[ -f ../etc/crictl.yaml ] && cp -rf ../etc/crictl.yaml /etc
+[ -f ../etc/crictl.yaml ] && cp -a ../etc/crictl.yaml /etc
 
 if ! bash init-shim.sh; then
   error "====init image-cri-shim failed!===="

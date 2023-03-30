@@ -76,8 +76,6 @@ EOF
   ;;
 crun)
   cat <<EOF >>"Kubefile"
-LABEL init="init-runtime.sh && bash init-cri.sh && bash init.sh" \
-      clean="clean.sh && bash clean-cri.sh && bash clean-runtime.sh"
 ENV SEALOS_SYS_CRI_RUNTIME=crun
 COPY . .
 EOF
@@ -98,8 +96,8 @@ EOF
 k8s)
   PauseVersion=$(wget -qO- "https://github.com/kubernetes/kubernetes/raw/v$VERSION/cmd/kubeadm/app/constants/constants.go" | grep "PauseVersion = " | awk -F\" '{print $(NF-1)}')
   cat <<EOF >>"Kubefile"
-LABEL init="init-cri.sh && bash init.sh" \
-      clean="clean.sh && bash clean-cri.sh" \
+LABEL init="init-runtime.sh && bash init-cri.sh && bash init.sh" \
+      clean="clean.sh && bash clean-cri.sh && bash clean-runtime.sh" \
       sealos.io.type="rootfs" \
       sealos.io.version="v1beta2" \
       sealos.io.runtime="$MODULE" \
@@ -134,8 +132,6 @@ EOF
   ;;
 runc)
   cat <<EOF >>"Kubefile"
-LABEL init="init-runtime.sh && bash init-cri.sh && bash init.sh" \
-      clean="clean.sh && bash clean-cri.sh && bash clean-runtime.sh"
 ENV SEALOS_SYS_CRI_RUNTIME=runc
 COPY . .
 EOF

@@ -1,65 +1,31 @@
-name: build image
+name: build image - push
 on:
   workflow_dispatch:
-    inputs:
-      sealosPatch:
-        description: 'sealos patch image for development.'
-        required: true
-        default: ghcr.io/labring/sealos-patch:dev
   issue_comment:
     types:
       - created
 jobs:
-  build-images-amd64:
-    if: contains(github.event.inputs.sealosPatch, 'sealos')
+  build-image:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        arch:
+          - amd64
+          - arm64
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Auto mv sealos
-        run: |
-          mv sealos sealos-build
       - name: Auto install sealos
         uses: labring/sealos-action@v0.0.7
         with:
           type: install
           pruneCRI: true
-          sealosVersion: 4.2.0-alpha1
-      - name: Auto build image
-        run: |
-          mv sealos-build sealos 
-          sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
-          sudo bash build-image.sh amd64
-          IMAGE_FILE="build-image.files"
-          while IFS= read -r image; do
-            echo "Pushing image: $image"
-            sudo sealos push "$image"
-          done < "$IMAGE_FILE"
-
-
-  build-images-arm64:
-    if: contains(github.event.inputs.sealosPatch, 'sealos')
-    runs-on: ubuntu-20.04
-    steps:
+          sealosVersion: 4.2.0-alpha2
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Auto mv sealos
-        run: |
-          mv sealos sealos-build
-      - name: Auto install sealos
-        uses: labring/sealos-action@v0.0.7
-        with:
-          type: install
-          pruneCRI: true
-          sealosVersion: 4.2.0-alpha1
       - name: Auto build image
         run: |
-          mv sealos-build sealos 
-          sudo sealos login  -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }}  ghcr.io
-          sudo bash build-image.sh arm64
-          IMAGE_FILE="build-image.files"
-          while IFS= read -r image; do
+          sudo bash build-image.sh ${{ matrix.arch }} ghcr.io/labring-actions
+          sudo sealos login -u labring-actions -p ${{ secrets.G_REGISTRY_TOKEN }} ghcr.io
+          sudo sealos images | grep ghcr.io/labring-actions/dev-merge- | awk '{printf("%s:%s\n"),$1,$2}' | while IFS= read -r image; do
             echo "Pushing image: $image"
             sudo sealos push "$image"
-          done < "$IMAGE_FILE"
-
+          done

@@ -14,18 +14,9 @@
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 source common.sh
-cp -rf ../etc/image-cri-shim.service /etc/systemd/system/
-cp -rf ../etc/image-cri-shim.yaml /etc
-
-mkdir -p ../cri ../opt
-if ! ../cri/image-cri-shim --version; then
-  tar -C ../cri -zxf ../modules/sealos image-cri-shim
-fi
-if ! ../opt/sealctl version --short; then
-  tar -C ../opt -zxf ../modules/sealos sealctl
-fi
-
-cp -rf ../cri/image-cri-shim /usr/bin
+cp -a ../etc/image-cri-shim.service /etc/systemd/system/
+cp -a ../etc/image-cri-shim.yaml /etc
+cp -a ../cri/image-cri-shim /usr/bin
 
 check_service start image-cri-shim
 check_status image-cri-shim

@@ -160,3 +160,12 @@ find ../modules/ -type f | grep -v .files$ | while read -r module; do
     fi
   fi
 done
+
+if ! ../cri/image-cri-shim --version 2>/dev/null; then
+  mkdir -p ../cri
+  tar -C ../cri -zxf ../modules/sealos image-cri-shim
+fi
+if ! ../opt/sealctl version --short 2>/dev/null; then
+  mkdir -p ../opt
+  tar -C ../opt -zxf ../modules/sealos sealctl
+fi

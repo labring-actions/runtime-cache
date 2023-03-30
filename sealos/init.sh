@@ -10,6 +10,7 @@ readonly VERSION=${2:-4.1.6}
 
 readonly MODULE=${PWD##*/}
 cp -a ../scripts/common.sh scripts
+cp -a ../tools/"$ARCH"/ .
 
   cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-$MODULE:$VERSION-$ARCH
