@@ -14,7 +14,6 @@ cp -a ../scripts/common.sh scripts
 cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-$MODULE:$VERSION-$ARCH
 LABEL merge.sealos.io.type.$MODULE="$VERSION"
-MAINTAINER sealos
 ENV criDockerdData=/var/lib/cri-dockerd \
     SEALOS_SYS_CRI_ENDPOINT=/var/run/cri-dockerd.sock
 COPY . .

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
-readonly module_files=../modules/docker.files
+readonly module_files=../modules/moby.files
 source common.sh
 check_service stop docker
 rm -rf /etc/docker/daemon.json

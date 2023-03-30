@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 cd "$(dirname "$0")" >/dev/null 2>&1 || exit
-readonly module_files=../modules/docker.files
+readonly module_files=../modules/moby.files
 source common.sh
 if ! command_exists docker; then
   lsb_dist=$(get_distribution)
@@ -28,7 +28,7 @@ if ! command_exists docker; then
 
   [ -d /etc/docker/ ] || mkdir /etc/docker/ -p
   cp ../etc/docker.service /etc/systemd/system/
-  tar --strip-components=1 -zxvf ../modules/docker -C /usr/bin
+  tar --strip-components=1 -zxvf ../modules/moby -C /usr/bin
 
   awk '{printf "/usr/bin/%s\n",$1}' "$module_files" | while read -r file; do
     if file "$file" | grep -E "(executable|/ld-)" | awk -F: '{print $1}' | grep -v .so; then

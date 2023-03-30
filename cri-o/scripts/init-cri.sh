@@ -24,7 +24,7 @@ mkdir -p /etc/crio/crio.conf.d
 cp ../etc/crio.conf /etc/crio/
 cp ../etc/99-crio.conf /etc/crio/crio.conf.d/
 cp ../etc/crio.service /etc/systemd/system/
-if ! [ -s /etc/containers/policy.json ];then
+if ! [ -s /etc/containers/policy.json ]; then
   mkdir -p /etc/containers && cp ../etc/policy.json /etc/containers
 fi
 #cp ../etc/config.json /etc/crio

@@ -15,7 +15,6 @@ cp -a ../scripts/untar-registry.sh scripts
 cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-distribution:$VERSION-$ARCH
 LABEL merge.sealos.io.type.$MODULE="$VERSION"
-MAINTAINER sealos
 LABEL init-registry="init-registry.sh" \
       clean-registry="clean-registry.sh"
 ENV registryData=/var/lib/registry \

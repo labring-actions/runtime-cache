@@ -7,8 +7,7 @@ echo "build ... ${PWD##*/}"
 
 readonly ARCH=${1:-amd64}
 
-cat <<EOF >"Kubefile"
+cat <<EOF >"$ARCH/Kubefile"
 FROM scratch
-MAINTAINER sealos
-COPY $ARCH/ .
+COPY . .
 EOF

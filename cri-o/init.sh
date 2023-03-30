@@ -14,7 +14,6 @@ cp -a ../scripts/common.sh scripts
 cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-$MODULE:$VERSION-$ARCH
 LABEL merge.sealos.io.type.$MODULE="$VERSION"
-MAINTAINER sealos
 LABEL check="check.sh"
 ENV criData=/var/lib/crio \
     criCRIOData=/run/crio \

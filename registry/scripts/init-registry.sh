@@ -27,7 +27,6 @@ check_registry_port_inuse $registryPort
 
 mkdir -p "$registryData" "$registryConfig"
 
-
 tar -C /usr/bin/ -zxvf ../modules/distribution registry
 chmod a+x /usr/bin/registry
 cp -a ../etc/registry.service /etc/systemd/system/
