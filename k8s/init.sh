@@ -16,8 +16,8 @@ cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-kubernetes:$VERSION-$ARCH
 LABEL merge.sealos.io.type.kube="$VERSION"
 MAINTAINER sealos
-LABEL init="init-cri.sh && bash init.sh" \
-      clean="clean.sh && bash clean-cri.sh" \
+LABEL init="init-runtime.sh && bash init-cri.sh && bash init.sh" \
+      clean="clean.sh && bash clean-cri.sh && bash clean-runtime.sh" \
       sealos.io.type="rootfs" \
       sealos.io.version="v1beta2" \
       sealos.io.runtime="$MODULE" \

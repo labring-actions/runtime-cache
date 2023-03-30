@@ -15,8 +15,6 @@ cat <<EOF >"Kubefile"
 FROM ghcr.io/labring-actions/cache-$MODULE:$VERSION-$ARCH
 LABEL merge.sealos.io.type.$MODULE="$VERSION"
 MAINTAINER sealos
-LABEL init="init-runtime.sh && bash init-cri.sh && bash init.sh" \
-      clean="clean.sh && bash clean-cri.sh && bash clean-runtime.sh"
 ENV SEALOS_SYS_CRI_RUNTIME=crun
 COPY . .
 EOF
