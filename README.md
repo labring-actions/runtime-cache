@@ -6,6 +6,6 @@
 
 支持的内置环境变量：
 
-SEALOS_SYS_CRI_ENDPOINT: cri的Unix套接字地址
-SEALOS_SYS_CRI_RUNTIME: cri runtime的类别（runc,crun等）
-SEALOS_SYS_SANDBOX_IMAGE: cri的sandbox镜像地址
+- SEALOS_SYS_CRI_ENDPOINT: cri的Unix套接字地址
+- SEALOS_SYS_CRI_RUNTIME: cri runtime的类别（runc,crun等）
+- SEALOS_SYS_SANDBOX_IMAGE: cri的sandbox镜像地址
