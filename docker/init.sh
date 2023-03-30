@@ -17,7 +17,6 @@ LABEL merge.sealos.io.type.$MODULE="$VERSION"
 MAINTAINER sealos
 LABEL check="check.sh"
 ENV criData=/var/lib/docker \
-    criDockerdData=/var/lib/cri-dockerd \
     registryDomain=sealos.hub \
     registryPort=5000 \
     registryUsername=admin \
