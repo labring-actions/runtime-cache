@@ -24,7 +24,7 @@ check_registry_port_inuse() {
 
 check_registry_port_inuse 5001
 check_registry_port_inuse $registryPort
-
+disable_selinux
 mkdir -p "$registryData" "$registryConfig"
 
 tar -C /usr/bin/ -zxvf ../modules/distribution registry
